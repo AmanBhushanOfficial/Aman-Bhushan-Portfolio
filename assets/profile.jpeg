@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aman Bhushan | AI &amp; Software Engineer</title>
+  <meta name="description" content="Portfolio of Aman Bhushan, BCA (AI &amp; ML) student. Builds machine learning apps with Python, Scikit-learn and FastAPI. Open to AI and Software Engineer roles.">
+  <meta name="theme-color" content="#050507">
+
+  <!-- Fonts: Sora (headings) + Manrope (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Sora:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background effects: AI "neural network" canvas, cursor glow, scroll progress -->
+  <canvas id="network" aria-hidden="true"></canvas>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="#home" class="logo">AB<span>.</span></a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#certificates">Certificates</a></li>
+        <li><a href="#journey">Journey</a></li>
+        <li><a href="#contact" class="nav-cta">Hire me</a></li>
+      </ul>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ========== HERO ========== -->
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+
+        <!-- Left: name -->
+        <div class="hero-name">
+          <p class="hero-hi">Hi, I'm</p>
+          <h1>Aman<br>Bhushan</h1>
+          <p class="hero-title">
+            <span id="typedRole" class="typed"></span>
+          </p>
+        </div>
+
+        <!-- Center: photo -->
+        <div class="hero-photo">
+          <div class="photo-ring"></div>
+          <img src="profile.jpeg" alt="Portrait of Aman Bhushan" width="462" height="577">
+        </div>
+
+        <!-- Right: short pitch -->
+        <div class="hero-pitch">
+          <p class="open-pill"><span class="dot"></span> Open to AI / Software Engineer roles</p>
+          <h2>AI &amp; Software Engineer</h2>
+          <p>
+            BCA (AI &amp; ML) student. I train machine learning models with Scikit-learn,
+            serve them through FastAPI and ship them live. Mind Metrics is my deployed example.
+          </p>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">View projects</a>
+            <a href="Aman_Bhushan_CV.docx" class="btn btn-outline" download="Aman_Bhushan_CV.docx">Download CV</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container hero-bottom">
+        <ul class="social">
+          <li><a href="https://github.com/AmanBhushanOfficial" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/aman-bhushan-8603a5301/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="mailto:amanbhushan2006@gmail.com">Email</a></li>
+        </ul>
+        <a href="#about" class="scroll-hint">Scroll</a>
+      </div>
+    </section>
+
+    <!-- ========== TECH MARQUEE ========== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Python</span><span>Scikit-learn</span><span>FastAPI</span><span>REST APIs</span>
+        <span>PyTorch</span><span>TensorFlow</span><span>Hugging Face</span><span>SQL</span>
+        <span>Java</span><span>Gen AI</span><span>RAG</span><span>Git</span>
+        <!-- same list again so the loop is seamless -->
+        <span>Python</span><span>Scikit-learn</span><span>FastAPI</span><span>REST APIs</span>
+        <span>PyTorch</span><span>TensorFlow</span><span>Hugging Face</span><span>SQL</span>
+        <span>Java</span><span>Gen AI</span><span>RAG</span><span>Git</span>
+      </div>
+    </div>
+
+    <!-- ========== ABOUT ========== -->
+    <section id="about" class="section">
+      <div class="container about-grid">
+
+        <div class="reveal">
+          <h2 class="section-title">I like turning data into software people can use.</h2>
+          <p>
+            I'm an aspiring Software and AI Engineer. I work in Python, Data Structures and
+            Algorithms and OOP. I build machine learning apps with Scikit-learn and backend
+            services with FastAPI and REST APIs.
+          </p>
+          <p>
+            I'm comfortable with the full path: cleaning data, feature engineering, evaluating
+            a model, wrapping it in an API and deploying it. I'm also learning Gen AI and RAG
+            pipelines, and I use AI-assisted development tools to move faster.
+          </p>
+
+          <!-- Stats: all of these are real numbers from my CV -->
+          <ul class="stats">
+            <li><strong data-count="3">0</strong><span>Projects built</span></li>
+            <li><strong data-count="3">0</strong><span>Gen AI certificates</span></li>
+            <li><strong data-count="8.82" data-decimals="2">0</strong><span>CGPA so far</span></li>
+            <li><strong data-count="1">0</strong><span>ML app live</span></li>
+          </ul>
+        </div>
+
+        <!-- Code-style profile card -->
+        <div class="code-card reveal tilt">
+          <div class="code-top">
+            <span></span><span></span><span></span>
+            <p>aman.py</p>
+          </div>
+<pre><code><span class="c-kw">class</span> <span class="c-cls">Aman</span>:
+    role     = <span class="c-str">"AI / Software Engineer"</span>
+    degree   = <span class="c-str">"BCA, AI &amp; ML"</span>
+    college  = <span class="c-str">"Sharda University, Agra"</span>
+
+    languages = [<span class="c-str">"Python"</span>, <span class="c-str">"SQL"</span>, <span class="c-str">"Java"</span>, <span class="c-str">"JavaScript"</span>]
+    ml_stack  = [<span class="c-str">"Scikit-learn"</span>, <span class="c-str">"PyTorch"</span>,
+                 <span class="c-str">"TensorFlow"</span>, <span class="c-str">"Hugging Face"</span>]
+    backend   = [<span class="c-str">"FastAPI"</span>, <span class="c-str">"Flask"</span>, <span class="c-str">"REST APIs"</span>]
+
+    shipped   = <span class="c-str">"Mind Metrics (live on Render)"</span>
+
+    <span class="c-kw">def</span> <span class="c-fn">open_to</span>(self):
+        <span class="c-kw">return</span> <span class="c-str">"AI / Software Engineer roles"</span></code></pre>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========== PROJECTS ========== -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2 class="section-title reveal">Projects</h2>
+
+        <!-- Featured: Mind Metrics with a live demo window -->
+        <article class="featured reveal">
+
+          <div class="featured-info">
+            <p class="tag">Featured · Live on Render · 2026</p>
+            <h3>Mind Metrics</h3>
+            <p class="featured-sub">Mental health score prediction with machine learning.</p>
+            <p>
+              An end-to-end ML pipeline that takes a user's daily habits and predicts a
+              mental health score out of 10. I did the data preprocessing, EDA, feature
+              engineering and model evaluation, then built a FastAPI backend that serves
+              the model through REST APIs for real-time predictions.
+            </p>
+
+            <!-- A real sequence, so numbered -->
+            <ol class="pipeline">
+              <li>Clean data</li>
+              <li>EDA</li>
+              <li>Feature engineering</li>
+              <li>Train and evaluate</li>
+              <li>FastAPI + REST</li>
+              <li>Deploy on Render</li>
+            </ol>
+
+            <ul class="chips">
+              <li>Python</li><li>Scikit-learn</li><li>Matplotlib</li><li>Seaborn</li>
+              <li>FastAPI</li><li>REST APIs</li><li>Git &amp; GitHub</li><li>Render</li>
+            </ul>
+
+            <div class="hero-buttons">
+              <a class="btn btn-primary" href="https://mental-health-score-ml-model-1.onrender.com/" target="_blank" rel="noopener noreferrer">Open live app</a>
+              <a class="btn btn-outline" href="https://github.com/AmanBhushanOfficial" target="_blank" rel="noopener noreferrer">View code</a>
+            </div>
+          </div>
+
+          <!-- Browser window mockup -->
+          <div class="browser">
+            <div class="browser-bar">
+              <span></span><span></span><span></span>
+              <p>mental-health-score-ml-model-1.onrender.com</p>
+            </div>
+
+            <div class="browser-screen" id="demoScreen">
+              <img src="assets/mind-1.jpg" alt="Mind Metrics app showing a predicted score of 7.86 out of 10" id="demoImage">
+            </div>
+
+            <div class="browser-controls">
+              <button class="mini-tab active" data-shot="assets/mind-1.jpg">Preview 1</button>
+              <button class="mini-tab" data-shot="assets/mind-2.jpg">Preview 2</button>
+              <button class="mini-tab mini-live" id="loadLive">Try it live here</button>
+            </div>
+            <p class="browser-note" id="demoNote">The live app runs on free hosting, so the first load can take a few seconds.</p>
+          </div>
+        </article>
+
+        <!-- Two smaller projects -->
+        <div class="project-pair">
+          <article class="project tilt reveal">
+            <div class="project-head">
+              <h3>Cafe Management System</h3>
+              <span>2026</span>
+            </div>
+            <p class="project-sub">Python · OOP · SQLite</p>
+            <ul class="bullets">
+              <li>Console app for menu management, customer orders and billing.</li>
+              <li>CRUD operations backed by SQL and SQLite.</li>
+              <li>Classes, encapsulation and modular code for reusable components.</li>
+              <li>Exception handling so invalid input never crashes the app.</li>
+            </ul>
+            <ul class="chips">
+              <li>Python</li><li>SQL</li><li>SQLite</li><li>OOP</li><li>File handling</li><li>Git</li>
+            </ul>
+          </article>
+
+          <article class="project tilt reveal">
+            <div class="project-head">
+              <h3>Bank Management System</h3>
+              <span>2025</span>
+            </div>
+            <p class="project-sub">Python · OOP · SQLite</p>
+            <ul class="bullets">
+              <li>Simulates account creation, deposits, withdrawals and balance checks.</li>
+              <li>Transaction processing with customer records stored in SQL.</li>
+              <li>Account validation and checks that block invalid operations.</li>
+              <li>Structured with classes and methods for maintainable code.</li>
+            </ul>
+            <ul class="chips">
+              <li>Python</li><li>SQL</li><li>SQLite</li><li>OOP</li><li>Data validation</li><li>Git</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SKILLS ========== -->
+    <section id="skills" class="section">
+      <div class="container">
+        <h2 class="section-title reveal">Skills</h2>
+
+        <div class="skill-tabs reveal" role="tablist">
+          <button class="skill-tab active" data-skill="ai" role="tab">AI &amp; ML</button>
+          <button class="skill-tab" data-skill="lang" role="tab">Languages</button>
+          <button class="skill-tab" data-skill="tools" role="tab">Frameworks &amp; tools</button>
+          <button class="skill-tab" data-skill="swe" role="tab">Software engineering</button>
+          <button class="skill-tab" data-skill="web" role="tab">Web &amp; deployment</button>
+        </div>
+
+        <div class="skill-panels reveal">
+          <ul class="skill-panel active" id="skill-ai">
+            <li>NumPy</li><li>Pandas</li><li>Scikit-learn</li><li>Feature Engineering</li>
+            <li>Model Training</li><li>Model Evaluation</li><li>Supervised Learning</li>
+            <li>Deep Learning</li><li>Gen AI</li><li>RAG pipelines</li>
+          </ul>
+          <ul class="skill-panel" id="skill-lang">
+            <li>Python</li><li>SQL</li><li>Java</li><li>JavaScript</li>
+            <li>Data Structures &amp; Algorithms</li><li>OOP</li>
+          </ul>
+          <ul class="skill-panel" id="skill-tools">
+            <li>FastAPI</li><li>Flask</li><li>TensorFlow</li><li>PyTorch</li>
+            <li>Hugging Face</li><li>OpenAI API</li><li>Jupyter Notebook</li>
+            <li>Google Colab</li><li>VS Code</li>
+          </ul>
+          <ul class="skill-panel" id="skill-swe">
+            <li>REST APIs</li><li>Backend Development</li><li>DBMS</li><li>Operating Systems</li>
+            <li>Computer Networks</li><li>Git &amp; GitHub</li><li>Debugging</li><li>Problem-solving</li>
+          </ul>
+          <ul class="skill-panel" id="skill-web">
+            <li>HTML</li><li>CSS</li><li>JavaScript</li><li>React</li>
+            <li>API Integration</li><li>Model Deployment</li><li>Render</li><li>Cloud fundamentals</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CERTIFICATES ========== -->
+    <section id="certificates" class="section">
+      <div class="container">
+        <h2 class="section-title reveal">Certificates</h2>
+        <p class="section-sub reveal">Click any certificate to view it full size. Use the arrow keys to move between them.</p>
+      </div>
+
+      <!-- Scrollable 3D rail -->
+      <div class="cert-rail" id="certRail">
+        <button class="cert-card" data-full="assets/cert-udemy.png" data-title="Generative AI Masters 2026: From Python to Gen AI" data-meta="Udemy · 50 hours · Sept 2026">
+          <img src="assets/cert-udemy.png" alt="Udemy certificate: Generative AI Masters 2026, From Python to Gen AI">
+          <span class="cert-label">
+            <strong>From Python to Gen AI</strong>
+            <em>Udemy · 50 hours</em>
+          </span>
+        </button>
+
+        <button class="cert-card" data-full="assets/cert-scaler.jpg" data-title="Designing Scalable RAG Pipelines" data-meta="Scaler Masterclass · 21 May 2026">
+          <img src="assets/cert-scaler.jpg" alt="Scaler Masterclass certificate: Designing Scalable RAG Pipelines">
+          <span class="cert-label">
+            <strong>Scalable RAG Pipelines</strong>
+            <em>Scaler Masterclass · May 2026</em>
+          </span>
+        </button>
+
+        <button class="cert-card" data-full="assets/cert-outskill.png" data-title="Generative AI Mastermind" data-meta="Outskill · Certificate of Completion">
+          <img src="assets/cert-outskill.png" alt="Outskill certificate: Generative AI Mastermind">
+          <span class="cert-label">
+            <strong>Generative AI Mastermind</strong>
+            <em>Outskill · Completion</em>
+          </span>
+        </button>
+      </div>
+
+      <div class="container">
+        <p class="coursework reveal">
+          Also studied: Machine Learning Specialization (Coursera), IBM Gen AI Engineering, Deep Learning and Data Analysis coursework.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== JOURNEY (education + activities) ========== -->
+    <section id="journey" class="section">
+      <div class="container journey-grid">
+
+        <div class="reveal">
+          <h2 class="section-title">Education</h2>
+          <ol class="timeline">
+            <li>
+              <p class="t-date">2024 to 2027</p>
+              <h3>BCA, AI &amp; ML specialization</h3>
+              <p>Sharda University, Agra · 8.82 CGPA so far</p>
+            </li>
+            <li>
+              <p class="t-date">2024</p>
+              <h3>Class XII</h3>
+              <p>S V M · 83%</p>
+            </li>
+            <li>
+              <p class="t-date">2022</p>
+              <h3>Class X</h3>
+              <p>S V M · 85%</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="reveal">
+          <h2 class="section-title">Beyond the classroom</h2>
+          <ul class="activities">
+            <li>
+              <h3>Google Skills, Bronze League</h3>
+              <p>Finished in 1st position.</p>
+            </li>
+            <li>
+              <h3>AI-assisted development</h3>
+              <p>Build websites faster with AI tools like Lovable.ai, then review and own the code.</p>
+            </li>
+            <li>
+              <h3>Convergence India Expo</h3>
+              <p>Explored advanced robotics, Physical AI and intelligent automation.</p>
+            </li>
+            <li>
+              <h3>EscalateX v2, Cyberonites Club</h3>
+              <p>Took part in a tech event focused on problem-solving and emerging technologies.</p>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section id="contact" class="section contact">
+      <div class="container contact-grid">
+
+        <div class="reveal">
+          <h2 class="section-title">Hiring for an AI or Software Engineer role?</h2>
+          <p>I'm open to internships and entry-level roles. Send me a message and I'll reply.</p>
+
+          <div class="email-row">
+            <a href="mailto:amanbhushan2006@gmail.com" class="contact-email">amanbhushan2006@gmail.com</a>
+            <button class="btn btn-outline" id="copyEmail">Copy email</button>
+          </div>
+
+          <ul class="contact-links">
+            <li><a href="tel:+919319053515">+91 93190 53515</a></li>
+            <li><a href="https://github.com/AmanBhushanOfficial" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/aman-bhushan-8603a5301/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
+        </div>
+
+        <!-- Opens the visitor's email app with the message filled in -->
+        <form class="contact-form reveal" id="contactForm">
+          <label for="cName">Your name</label>
+          <input type="text" id="cName" required>
+
+          <label for="cCompany">Company (optional)</label>
+          <input type="text" id="cCompany">
+
+          <label for="cMsg">Message</label>
+          <textarea id="cMsg" rows="5" required></textarea>
+
+          <button type="submit" class="btn btn-primary" id="sendBtn">Send message</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Aman Bhushan</p>
+      <a href="#home">Back to top</a>
+    </div>
+  </footer>
+
+  <!-- Certificate lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Certificate viewer" hidden>
+    <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous certificate">&#8249;</button>
+    <figure>
+      <img id="lbImage" src="" alt="">
+      <figcaption>
+        <strong id="lbTitle"></strong>
+        <span id="lbMeta"></span>
+      </figcaption>
+    </figure>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Next certificate">&#8250;</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

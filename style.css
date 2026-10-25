@@ -1,0 +1,330 @@
+// =========================================================
+// Aman Bhushan Portfolio: beginner-friendly JavaScript
+// Each feature lives in its own numbered block.
+// =========================================================
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isTouch = window.matchMedia("(hover: none)").matches;
+
+
+// ---------- 1. Mobile menu ----------
+const navToggle = document.getElementById("navToggle");
+const navLinks = document.getElementById("navLinks");
+
+navToggle.addEventListener("click", function () {
+  const isOpen = navLinks.classList.toggle("open");
+  navToggle.setAttribute("aria-expanded", isOpen);
+});
+
+navLinks.querySelectorAll("a").forEach(function (link) {
+  link.addEventListener("click", function () {
+    navLinks.classList.remove("open");
+    navToggle.setAttribute("aria-expanded", "false");
+  });
+});
+
+
+// ---------- 2. Typing effect in the hero ----------
+const roles = [
+  "Machine Learning with Scikit-learn",
+  "FastAPI backends and REST APIs",
+  "Gen AI and RAG pipelines",
+  "Python and OOP"
+];
+
+const typedEl = document.getElementById("typedRole");
+let roleIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function type() {
+  const word = roles[roleIndex];
+  charIndex += deleting ? -1 : 1;
+  typedEl.textContent = word.slice(0, charIndex);
+
+  let delay = deleting ? 35 : 70;
+  if (!deleting && charIndex === word.length) { deleting = true; delay = 1600; }
+  else if (deleting && charIndex === 0) { deleting = false; roleIndex = (roleIndex + 1) % roles.length; delay = 400; }
+  setTimeout(type, delay);
+}
+
+if (reduceMotion) { typedEl.textContent = roles[0]; } else { type(); }
+
+
+// ---------- 3. Neural-network background (canvas) ----------
+// Dots drift around and connect with lines when close. Mouse pulls lines too.
+const canvas = document.getElementById("network");
+const ctx = canvas.getContext("2d");
+let dots = [];
+const mouse = { x: -999, y: -999 };
+
+function setupCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const count = Math.min(90, Math.floor(canvas.width / 18)); // fewer dots on phones
+  dots = [];
+  for (let i = 0; i < count; i++) {
+    dots.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35
+    });
+  }
+}
+
+function drawNetwork() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  dots.forEach(function (d, i) {
+    if (!reduceMotion) {
+      d.x += d.vx;
+      d.y += d.vy;
+      if (d.x < 0 || d.x > canvas.width) d.vx *= -1;
+      if (d.y < 0 || d.y > canvas.height) d.vy *= -1;
+    }
+
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, 1.8, 0, Math.PI * 2);
+    ctx.fillStyle = "#4a76ff";
+    ctx.fill();
+
+    // lines to nearby dots
+    for (let j = i + 1; j < dots.length; j++) {
+      const dist = Math.hypot(d.x - dots[j].x, d.y - dots[j].y);
+      if (dist < 140) {
+        ctx.strokeStyle = "rgba(0, 48, 192," + (1 - dist / 140) * 0.55 + ")";
+        ctx.beginPath();
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(dots[j].x, dots[j].y);
+        ctx.stroke();
+      }
+    }
+
+    // line to the mouse
+    const md = Math.hypot(d.x - mouse.x, d.y - mouse.y);
+    if (md < 180) {
+      ctx.strokeStyle = "rgba(74, 118, 255," + (1 - md / 180) * 0.8 + ")";
+      ctx.beginPath();
+      ctx.moveTo(d.x, d.y);
+      ctx.lineTo(mouse.x, mouse.y);
+      ctx.stroke();
+    }
+  });
+
+  if (!reduceMotion) requestAnimationFrame(drawNetwork);
+}
+
+setupCanvas();
+drawNetwork();
+window.addEventListener("resize", function () { setupCanvas(); if (reduceMotion) drawNetwork(); });
+
+
+// ---------- 4. Cursor glow + mouse position for the canvas ----------
+const glow = document.getElementById("cursorGlow");
+
+window.addEventListener("mousemove", function (e) {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+  if (!isTouch) {
+    glow.style.opacity = 1;
+    glow.style.transform = "translate(" + e.clientX + "px," + e.clientY + "px)";
+  }
+});
+
+
+// ---------- 5. Scroll progress bar + active nav link ----------
+const progress = document.getElementById("progress");
+
+window.addEventListener("scroll", function () {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.width = (window.scrollY / scrollable) * 100 + "%";
+});
+
+const sectionObserver = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
+    if (entry.isIntersecting) {
+      navLinks.querySelectorAll("a").forEach(function (link) {
+        link.classList.toggle("active", link.getAttribute("href") === "#" + entry.target.id);
+      });
+    }
+  });
+}, { rootMargin: "-45% 0px -50% 0px" });
+
+document.querySelectorAll("main section[id]").forEach(function (s) { sectionObserver.observe(s); });
+
+
+// ---------- 6. Reveal on scroll + count-up numbers ----------
+function countUp(el) {
+  const target = Number(el.dataset.count);
+  const decimals = Number(el.dataset.decimals || 0);
+  if (reduceMotion) { el.textContent = target.toFixed(decimals); return; }
+
+  const duration = 1200;
+  const start = performance.now();
+  function step(now) {
+    const t = Math.min((now - start) / duration, 1);
+    el.textContent = (target * t).toFixed(decimals);
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+const revealObserver = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add("visible");
+    entry.target.querySelectorAll("[data-count]").forEach(countUp);
+    revealObserver.unobserve(entry.target);
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll(".reveal").forEach(function (el) { revealObserver.observe(el); });
+
+
+// ---------- 7. 3D tilt on cards ----------
+if (!isTouch && !reduceMotion) {
+  document.querySelectorAll(".tilt, .cert-card").forEach(function (card) {
+    card.addEventListener("mousemove", function (e) {
+      const box = card.getBoundingClientRect();
+      const x = (e.clientX - box.left) / box.width - 0.5;   // -0.5 to 0.5
+      const y = (e.clientY - box.top) / box.height - 0.5;
+      card.style.setProperty("--ry", x * 8 + "deg");
+      card.style.setProperty("--rx", y * -8 + "deg");
+    });
+    card.addEventListener("mouseleave", function () {
+      card.style.setProperty("--ry", "0deg");
+      card.style.setProperty("--rx", "0deg");
+    });
+  });
+}
+
+
+// ---------- 8. Mind Metrics demo window ----------
+const demoScreen = document.getElementById("demoScreen");
+const demoNote = document.getElementById("demoNote");
+const LIVE_URL = "https://mental-health-score-ml-model-1.onrender.com/";
+
+// Screenshot tabs
+document.querySelectorAll(".mini-tab[data-shot]").forEach(function (tab) {
+  tab.addEventListener("click", function () {
+    document.querySelectorAll(".mini-tab").forEach(function (t) { t.classList.remove("active"); });
+    tab.classList.add("active");
+    demoScreen.innerHTML = '<img src="' + tab.dataset.shot + '" alt="Mind Metrics app preview">';
+  });
+});
+
+// "Try it live here" loads the real app inside the window
+document.getElementById("loadLive").addEventListener("click", function () {
+  document.querySelectorAll(".mini-tab").forEach(function (t) { t.classList.remove("active"); });
+  this.classList.add("active");
+  demoScreen.innerHTML = '<iframe src="' + LIVE_URL + '" title="Mind Metrics live app" loading="lazy"></iframe>';
+  demoNote.innerHTML = 'Not loading? <a href="' + LIVE_URL + '" target="_blank" rel="noopener noreferrer">Open the app in a new tab</a>.';
+});
+
+
+// ---------- 9. Skill tabs ----------
+document.querySelectorAll(".skill-tab").forEach(function (tab) {
+  tab.addEventListener("click", function () {
+    document.querySelectorAll(".skill-tab").forEach(function (t) { t.classList.remove("active"); });
+    document.querySelectorAll(".skill-panel").forEach(function (p) { p.classList.remove("active"); });
+    tab.classList.add("active");
+    document.getElementById("skill-" + tab.dataset.skill).classList.add("active");
+  });
+});
+
+
+// ---------- 10. Certificate lightbox ----------
+const certCards = Array.from(document.querySelectorAll(".cert-card"));
+const lightbox = document.getElementById("lightbox");
+const lbImage = document.getElementById("lbImage");
+const lbTitle = document.getElementById("lbTitle");
+const lbMeta = document.getElementById("lbMeta");
+let currentCert = 0;
+
+function showCert(index) {
+  currentCert = (index + certCards.length) % certCards.length; // loops around
+  const card = certCards[currentCert];
+  lbImage.src = card.dataset.full;
+  lbImage.alt = card.dataset.title;
+  lbTitle.textContent = card.dataset.title;
+  lbMeta.textContent = card.dataset.meta;
+}
+
+function openLightbox(index) {
+  showCert(index);
+  lightbox.hidden = false;
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+  lightbox.hidden = true;
+  document.body.style.overflow = "";
+}
+
+certCards.forEach(function (card, i) {
+  card.addEventListener("click", function () { openLightbox(i); });
+});
+
+document.getElementById("lbClose").addEventListener("click", closeLightbox);
+document.getElementById("lbPrev").addEventListener("click", function () { showCert(currentCert - 1); });
+document.getElementById("lbNext").addEventListener("click", function () { showCert(currentCert + 1); });
+
+lightbox.addEventListener("click", function (e) { if (e.target === lightbox) closeLightbox(); });
+
+document.addEventListener("keydown", function (e) {
+  if (lightbox.hidden) return;
+  if (e.key === "Escape") closeLightbox();
+  if (e.key === "ArrowLeft") showCert(currentCert - 1);
+  if (e.key === "ArrowRight") showCert(currentCert + 1);
+});
+
+
+// ---------- 11. Contact: copy email + email form ----------
+function showToast(text) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.textContent = text;
+  document.body.appendChild(toast);
+  setTimeout(function () { toast.remove(); }, 2000);
+}
+
+document.getElementById("copyEmail").addEventListener("click", function () {
+  navigator.clipboard.writeText("amanbhushan2006@gmail.com")
+    .then(function () { showToast("Email copied"); })
+    .catch(function () { showToast("Copy failed. Select the email and copy it."); });
+});
+
+// Send message: opens an email draft to me with the visitor's message already filled in.
+const MY_EMAIL = "amanbhushan2006@gmail.com";
+const form = document.getElementById("contactForm");
+const formStatus = document.getElementById("formStatus");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const name = document.getElementById("cName").value;
+  const company = document.getElementById("cCompany").value;
+  const message = document.getElementById("cMsg").value;
+
+  const subject = "Portfolio message from " + name + (company ? " (" + company + ")" : "");
+  const body = "Name: " + name + "\n" + (company ? "Company: " + company + "\n" : "") + "\n" + message;
+
+  // Two ways to open the draft: Gmail in the browser, or the visitor's own email app
+  const gmailLink = "https://mail.google.com/mail/?view=cm&fs=1&to=" + MY_EMAIL +
+    "&su=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+  const mailtoLink = "mailto:" + MY_EMAIL + "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(body);
+
+  formStatus.className = "form-status ok";
+  formStatus.innerHTML = 'Opening your email draft. Nothing happened? ' +
+    '<a href="' + gmailLink + '" target="_blank" rel="noopener noreferrer">Open Gmail</a> or ' +
+    '<a href="' + mailtoLink + '">use your email app</a>.';
+
+  if (isTouch) {
+    window.location.href = mailtoLink;            // phones: open the mail app
+  } else {
+    const win = window.open(gmailLink, "_blank"); // computers: Gmail compose in a new tab
+    if (!win) window.location.href = mailtoLink;  // popup blocked: use the email app instead
+  }
+});
